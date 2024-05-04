@@ -6,5 +6,46 @@ dbname>
 -cls -> clear
 -show collections -> to see the collections(tables in sql)
 -db.dropDatabase() -> delete the database
--db.users.insertOne({name : 'mtk'}) -> adding a document
+
+//get - []
 -db.users.find() -> [{_id : ObjectId("id"), name : 'mtk'}]
+-db.users.find().sort({name : -1}) -> -1 is desc _ 1 is asc
+-db.users.find().limit(2) -> only the first two 
+-db.users.find().skip(2) -> skip the first first two
+
+//query
+-db.users.find({name : 'mtk'}) -> where : {name : 'mtk'}
+-db.users.find({name : 'mtk'},{name : 1, _id : 0}) -> select : { name : true, _id : false}
+
+//complex query - starts with $ - if there are two $ or two key, it is And query
+-db.users.find({age : { $gt : 18}}) -> age > 18
+-db.users.find({name : {$in : ["mtk" , "st"]}}) -> name === 'mtk' || name === 'st'
+-db.users.find({age : { $gte : 18 , $lte : 40 }}) -> age >= 18 && age <=40 
+-db.users.find({age : { $gte : 18 , $lte : 40 }, name : 'mtk'}) -> age >= 18 && age <=40 && name === 'mtk'
+-db.users.find({$and : [{age : 26}, {name : "Kyle"}]}) -> age === 26 && name : "Kyle"
+-db.users.find({$or : [{age : 26}, {name : "Kyle"}]}) -> age === 26 || name : "Kyle"
+
+//expression query - [{name : 'mtk' , balance : 100 , debt : 50 , address : {street : 'Zarga Street'}}]
+-db.users.find({$expr : {$gt : ["$debt","$balance"]}}) -> debt column > balance column (column not value - need $ to access columns)
+-db.users.find({"address.street" : "Zarga Street"}) -> address.street === 'Zarga Street'
+
+//get - {} 
+-db.users.findOne({name : 'mtk'})
+
+//create
+-db.users.insertOne({name : 'mtk'}) -> adding a document
+-db.users.insertMany([{name : 'nyi'},{name : 'shin thant'}])
+
+//update - $
+-db.users.updateOne({_id : ObjectId('id')} , {$set : {name : "kenneth"}})
+-db.users.updateOne({_id : ObjectId('id')} , {$push : {hobbies : "lethwei"}}) ->  hobbies : [lethwei] 
+-db.users.updateOne({_id : ObjectId('id')} , {$pull : {hobbies : "lethwei"}}) ->  hobbies : [] 
+
+//updateMany
+-db.users.updateMany({age : {$gte : 18}} , {$pull : {hobbies : "lethwei"}})
+
+//delete
+-db.users.deleteOne({_id : ObjectId('id')})
+
+//deleteMany
+-db.users.deleteOne({age : {$exists:false}}) -> delete all documents that doesn't have age field
