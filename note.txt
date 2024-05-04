@@ -1,0 +1,10 @@
+test>
+-show dbs
+-use dbname -> will create the db with that db name if not found,
+
+dbname>
+-cls -> clear
+-show collections -> to see the collections(tables in sql)
+-db.dropDatabase() -> delete the database
+-db.users.insertOne({name : 'mtk'}) -> adding a document
+-db.users.find() -> [{_id : ObjectId("id"), name : 'mtk'}]
