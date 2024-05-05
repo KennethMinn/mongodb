@@ -1,0 +1,37 @@
+const User = require("./model/User");
+
+//Fetching single objects
+const result = await User.findById(1)
+
+//Fetching selected scalars of single objects
+const user = await User.findById(1).select(['name'])
+
+//Fetching relations
+const userWithPost = await User.findById(2).populate('post') //includes in prisma
+
+//Filtering for concrete values
+const posts = await Post.find({
+  title: 'Hello World',
+})
+
+//Creating objects
+const user = await User.create({
+  name: 'Alice',
+  email: 'alice@prisma.io',
+})
+
+//Updating objects
+const updatedUser = await User.findOneAndUpdate(
+  { _id: 2 },
+  {
+    $set: {
+      name: 'Alicia',
+    },
+  }
+)
+
+//Deleting objects
+await User.deleteOne({ _id: 10 })
+
+//Batch deletes
+await User.deleteMany({ id: { $in: [1, 2, 6, 6, 22, 21, 25] } })
