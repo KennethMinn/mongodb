@@ -9,15 +9,17 @@ mongoose.connect("mongodb://localhost/test_mongo").then(() => {
 async function run() {
   try {
     // await User.create({
-    //   name: "nyi",
+    //   name: "st",
     //   age: 19,
-    //   email: "nyi@gmail.com",
-    //   hobbies: ["game", "gay", "anime"],
+    //   email: "st@gmail.com",
+    //   hobbies: ["game", "coding", "anime"],
     //   address: {
     //     city: "Yangon",
     //     street: "16 road",
     //   },
+    //   bestFriend: "663702bc8926b2f745da1988",
     // });
+
     // const user = await User.findById("663702bc8926b2f745da1988");
     // user.bestFriend = "66370376f4551e97686cb5f0";
     // user.save();
